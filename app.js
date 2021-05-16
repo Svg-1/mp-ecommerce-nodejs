@@ -93,7 +93,22 @@ app.get('/detail', async function (req, res) {
 
     const respuesta = await mercadopago.preferences.create(preferencia);
     console.log(respuesta);
+    req.query.init_point = respuesta.body.init_point;
+    req.query.id = respuesta.body.id, 
     res.render('detail', req.query);    
+});
+
+app.get("/success", function (req, res) {
+    console.log(req.query);
+    res.render("success", req.query);
+  });
+  
+app.get("failure", function(req,res){
+    res.render("failure", req.query);
+});
+
+app.get("pending", function(req,res){
+    res.render("pending", req.query);
 });
 
 app.listen(port);
