@@ -1,7 +1,9 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var mercadopago = require("mercadopago");
+var {json} = require("mercadopago");
 require("dotenv").config()
+var port = process.env.PORT || 3000
 //una vez que instalamos e importamos la libreria, ahora es necesario definir las credenciales para que MP separa quienes somos, algo asi como cuando usamos firebase.
 mercadopago.configure({ 
     //el access_token es la token que nos generará por cada integracion que realicemos, no se repite ya que la congifuracion será diferente. 
@@ -9,8 +11,8 @@ mercadopago.configure({
     //el integrator id es: la identificacion que nosotros tendremos una vez realizada la certificacion, esta nos ayudara para que MP sepa que desarrollador fue el responsable de dicha integracion.
     integrator_id: process.env.INTEGRATOR_ID,
 });
-
-var port = process.env.PORT || 3000
+var app = express();
+app.use(json());
  
 const cliente = {
     name: "Lalo",
