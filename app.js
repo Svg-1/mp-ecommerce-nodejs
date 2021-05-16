@@ -81,10 +81,10 @@ app.get('/', function (req, res) {
 app.get('/detail', async function (req, res) {
     console.log (req.query);
     const item = {
-        id: "1234",
+        id: 1234,
         title: req.query.title,
         description: "Dispositivo móvil de tienda e-commerce",
-        picture_url: req.get("host") + img.substr(1),
+        picture_url: req.get("host") + req.query.img.substr(1),
         quantity: +req.query.unit,
         currency_id: "PEN",
         unit_price: +req.query.price,
