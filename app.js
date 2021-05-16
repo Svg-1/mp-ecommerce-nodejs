@@ -55,7 +55,7 @@ const preferencia = {
     payment_methods: metodos_pagos,
     payer: cliente,
     auto_return: "approved",
-    notification_url: "", 
+    notification_url: "", // un endpoint en el cual mercado pago nos mandara la actualizacion de nuestro pago mediante un metodo POST y nosotros le tenemos que responder un estado 200 o 201 para que no haga spam a ese endpoint, OJO: no poner la notification_url en modo localhost ya que mp no creara la preferenca por declara una url invalida (127.0.0.1 | localhost)
     external_reference: "valdivia.gomez.sandra@gmail.com",
 }
 
@@ -88,6 +88,7 @@ app.get('/detail', async function (req, res) {
     preferencia.back_urls.failure = `${req.get('host')}/failure`; //http:127.0.0.1:5000
     preferencia.back_urls.success = `${req.get('host')}/success`;
     preferencia.back_urls.pending = `${req.get('host')}/pending`;
+    preferencia.notification_url = `${req.get("host")}/notificaciones`; // esta propiedad se define antes de ya subir a produccion.
     //el notificacion_url solo se puede utilizar en ambientes de producción (no localhost ni 127.0.0.1) porque es a ese endpoint en el cual mandará el estado de la pasarela de pago y por ende al identificar uno de los dominios anteriores lanzará un error y no se procederá con la pasarela.
     //preferencia.notificacion_url = `$req.get("host")}/notificaciones`
 
@@ -109,6 +110,15 @@ app.get("failure", function(req,res){
 
 app.get("pending", function(req,res){
     res.render("pending", req.query);
+});
+
+app.post("/notificaciones", function (req, res){
+    console.log("INICIO DE NOTIFICACIONES")
+    console.log("MEDIANTE EL QUERY PARAMS")
+    console.log(req.query);
+    console.log("MEDIANTE EL BODY")
+    console.log(req.body);
+    res.status(200);
 });
 
 app.listen(port);
