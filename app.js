@@ -66,8 +66,7 @@ const preferencia = {
     external_reference: "valdivia.gomez.sandra@gmail.com",
 }
 
-var app = express();
- 
+
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
