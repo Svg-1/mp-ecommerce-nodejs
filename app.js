@@ -39,17 +39,17 @@ const cliente = {
 };
 
 const metodos_pagos = {
-    installments: 6, 
-    exclude_payment_methods: [
+    installments: 6,
+    excluded_payment_types: [
         {
-            id: "diners",
-        },
+        id: 'atm'
+        }
     ],
-    exclude_payment_types: [
+    excluded_payment_methods: [
         {
-            id: "atm",
-        },
-    ],
+        id: 'diners'
+        }
+    ]
 };
 
 const preferencia = {
@@ -83,8 +83,8 @@ app.get('/detail', async function (req, res) {
     const item = {
         id: 1234,
         title: req.query.title,
-        description: "Dispositivo móvil de tienda e-commerce",
-        picture_url: req.get("host") + req.query.img.substr(1),
+        description: 'Dispositivo móvil de Tienda e-commerce',
+        picture_url: req.get('host') + req.query.img.substr(1),
         quantity: +req.query.unit,
         currency_id: "PEN",
         unit_price: +req.query.price,
